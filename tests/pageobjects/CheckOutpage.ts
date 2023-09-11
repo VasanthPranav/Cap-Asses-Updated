@@ -21,26 +21,14 @@ class CheckOutPage extends Page {
     public async Checkout_Product(Product:String) {
 
         const elements: Element[] = await $$('//*[contains(@class,"sidewidt")]/table/.//a');
-
-        // const text = await element.getText();
-
-        console.log("elements"+elements)
-
         let Status : Boolean = false;
-
         console.log("Status"+Status)
-
         for (const element of elements) {
- 
             const text = await element.getText();
-
             console.log("text"+text)
-
-
            if(text==Product){
             Status = true;
            }
-
           }
 
           if(Status=false){

@@ -17,13 +17,20 @@ import cucumberJson from 'wdio-cucumberjs-json-reporter';
 // import * as fs from 'fs'
 
 
-// import * as path from 'path';
+import * as path from 'path';
 // Import the module
 import { generate } from 'multiple-cucumber-html-reporter'
 
 // let reportAggregator: ReportGenerator;
 
 // let reportAggregator : ReportAggregator;
+
+declare global{
+
+    var excelFilePath:any;
+    var SheetName:any;
+
+}
 
 export const config: Options.Testrunner = {
     //
@@ -286,8 +293,19 @@ export const config: Options.Testrunner = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+    before: function () {
+
+        const userDirPath = process.cwd();
+console.log('User directory path:', userDirPath);
+
+        var filepath = path.join(userDirPath,"/Resources/Automation.xlsx")
+
+        console.log('filepath', filepath);
+
+        globalThis.excelFilePath = filepath;
+        globalThis.SheetName = 'Sheet1';
+
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {string} commandName hook command name
@@ -452,6 +470,12 @@ export const config: Options.Testrunner = {
 
     onPrepare: async() => {
         // Remove the `.tmp/` folder that holds the json and report files
+
+        
+// const excelFilePath = 'D:/Cap-Asses/Resources/Automation.xlsx';
+//         const SheetName = 'Sheet1'; 
+
+
 
         await fsPromises.rm('.tmp', { recursive: true });
         await fsPromises.rm('Reports/', { recursive: true });

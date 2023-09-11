@@ -4,9 +4,11 @@
     },
 
     "Credentials": {
-        "Test" : "https://automationteststore.com/",
         "Username": "Test5626",
-        "Password": "Test5626"
+        "Password": "Test5626",
+        "Invalid_Username": "null",
+        "valid_Username": "NewUser",
+        "InvalidPassword":"invalidpassword"
     }
 
 

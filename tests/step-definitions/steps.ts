@@ -1,51 +1,25 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-import { expect } from '@wdio/globals'
-
-import LoginPage from '../pageobjects/login.page.js';
-import SecurePage from '../pageobjects/secure.page.js';
 
 import HomePage from '../pageobjects/Homepage.js';
-
 import AccountLoginPage from '../pageobjects/AccountLoginPage.js';
-
 import CreateAccPage from '../pageobjects/CreateAccPage.js';
 import MyAccountPage from '../pageobjects/MyAccountPage.js';
 import CheckOutpage from '../pageobjects/CheckOutpage.js';
-
-// import * as data from '../../Utility/Enviroinment.json' ;
-
-
-// import * as configData from '../../Utility/Enviroinment.json' assert { type: 'json' };
-
-const pages :any = {
-    login: LoginPage
-}
-
-// console.log("configData" + configData)
-
-
-// const configData = require('./config.json');
-
-Given(/^I am on the (\w+) page$/, async (page:any) => {
-    await pages[page].open()
-});
-
-When(/^I login with (\w+) and (.+)$/, async (username, password) => {
-    await LoginPage.login(username, password)
-});
-
-Then(/^I should see a flash message saying (.*)$/, async (message) => {
-    await expect(SecurePage.flashAlert).toBeExisting();
-    await expect(SecurePage.flashAlert).toHaveTextContaining(message);
-});
+import * as fs from 'fs';
 
 
 
 
-Given(/^Launch "([^"]*)"$/, async (URL) => {
-	
+const jsonData = fs.readFileSync('D:/git/Cap-Asses/Utility/Enviroinment.json', 'utf-8');
+const parsedData = JSON.parse(jsonData);
+const URL_JSON = parsedData.URL.Test
 
-    await HomePage.Launch(URL);
+
+
+
+
+Given(/^Launch URL$/, async () => {
+    await HomePage.Launch(URL_JSON);
 	
 });
 
@@ -68,9 +42,20 @@ Then(/^provide Personal details in registration Screen$/, async() => {
     
 });
 
-Then(/^provide login details in registration Screen "([^"]*)"$/, async(USERNAME:any) => {
 
-    await CreateAccPage.Submit_login_Details(USERNAME);
+Then(/^provide invalid login details in registration Screen$/, async() => {
+
+    await CreateAccPage.Submit_login_Details(parsedData.Credentials.Invalid_Username);
+
+    // await CreateAccPage.Enable_Privacy_Policy();
+
+    
+});
+
+
+Then(/^provide valid login details in registration Screen$/, async() => {
+
+    await CreateAccPage.Submit_login_Details(parsedData.Credentials.valid_Username);
 
     // await CreateAccPage.Enable_Privacy_Policy();
 
@@ -100,9 +85,20 @@ Then(/^Verify whether error is displayed in account registration screen$/, async
 
 
 
-When(/^provide "([^"]*)" and "([^"]*)" login details and click on submit$/, async (username,password) => {
+When(/^provide login details and click on submit$/, async () => {
 
-	await AccountLoginPage.UserName_password_Input(username,password);
+   
+
+	await AccountLoginPage.UserName_password_Input(parsedData.Credentials.Username,parsedData.Credentials.Password);
+
+    await AccountLoginPage.Login_Button();
+});  
+
+When(/^provide invalid login details and click on submit$/, async () => {
+
+   
+
+	await AccountLoginPage.UserName_password_Input(parsedData.Credentials.Username,parsedData.Credentials.InvalidPassword);
 
     await AccountLoginPage.Login_Button();
 });  

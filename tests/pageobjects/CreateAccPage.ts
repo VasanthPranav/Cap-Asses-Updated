@@ -1,21 +1,16 @@
 import { $ } from '@wdio/globals'
 import Page from './page.js';
-// import { browser } from '@wdio/globals'
 
-import { expect } from 'chai'
+import { assert, expect } from 'chai'
 
-
-// import {readExcelSheet} from 'D:/Cap-Asses/Utility/ReadExcel.ts'
-
-
-// import { ExcelReader } from '
 
 import { ExcelReader } from '../../Utility/Excel.ts';
 
-const excelFilePath = 'D:/Cap-Asses/Resources/Automation.xlsx';
-        const SheetName = 'Sheet1'; 
+import * as cheerio from 'cheerio';
 
-        const excelReader = new ExcelReader(excelFilePath,SheetName);
+
+
+        const excelReader = new ExcelReader(globalThis.excelFilePath,globalThis.SheetName);
         const excelData = excelReader.readExcelData();
         
 
@@ -87,7 +82,11 @@ class CreateAccPage extends Page {
         return $('//*[contains(@class,"alert")]')
     }
 
-    //*[@id="maincontainer"]/div/div/div/div[1]/button
+    // public get Error_Message () {
+    //     return $('//*[contains(@class,"alert")]')
+    // }
+
+
 
 
 
@@ -137,18 +136,18 @@ class CreateAccPage extends Page {
         
     }
 
-    public async Submit_login_Details (Invalid_username) {
+    public async Submit_login_Details (username) {
         var today = new Date();
         let time = today.toLocaleTimeString().replace(/:/g,'').replace(/PM/g,'').replace(/AM/g,'')
         let Username = excelData.get('UserName')+time.trim()
 
-        console.log(Invalid_username)
+        console.log("Invalid_username" + username)
 
        
 
-        if(Invalid_username != ""){
+        if(username == "null"){
 
-            await this.Username_AccPage.setValue(Invalid_username);
+            await this.Username_AccPage.setValue(username);
 
         }
 
@@ -166,14 +165,7 @@ class CreateAccPage extends Page {
     }
 
     public async Enable_Privacy_Policy () {
-        // await this.PrivacyPolicy.click();
 
-
-
-//         const checkbox = await browser.$('#AccountFrm_agree');
-
-// // Click the checkbox
-// await checkbox.click();
 
 await browser.pause(10000);
 
@@ -181,10 +173,9 @@ await browser.pause(10000);
 try {
    
 
-    // Find the element you want to click (by CSS selector)
+   
     const element = await browser.$('//*[@id="AccountFrm_agree"]'); // Replace with your element selector
 
-    // Use JavaScript Executor to click on the element
     await browser.execute(function (element) {
       element.click();
     }, element);
@@ -218,6 +209,19 @@ try {
             expect(Title).not.to.equal("")
   
     })
+
+    const pageSource = await browser.getPageSource(); // Get the page's HTML source
+
+    // Load the HTML source into Cheerio
+    const $ = cheerio.load(pageSource);
+
+    let searchText = "Login name must be alphanumeric only and between 5 and 64 characters"
+
+    if ($(`*:contains("${searchText}")`).length > 0) {
+       assert.equal(true,true)
+      } else {
+        assert.equal(true,false)
+      }
 
     
 

@@ -1,6 +1,7 @@
 import { $ } from '@wdio/globals'
 import Page from './page.js';
-
+// import * as action from '../../Utility/Action.ts';
+// 
 /**
  * sub page containing specific selectors and methods for a specific page
  */
@@ -25,6 +26,7 @@ class LoginPage extends Page {
      * e.g. to login using username and password
      */
     public async login (username: string, password: string) {
+        // await action.waitUntilClickable(this.inputUsername,5000);
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
         await this.btnSubmit.click();

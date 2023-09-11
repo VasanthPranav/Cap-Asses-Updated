@@ -14,7 +14,9 @@ export class ExcelReader {
       // Read the Excel file
     //   const workbook = XLSX.readFile(this.filePath);
 
-      const workbook = XLSX.read(fs.readFileSync(this.filePath), { type: 'buffer' });
+      const workbook = XLSX.read(fs.readFileSync(this.filePath));
+
+      // const workbook = XLSX.read(fs.readFileSync(this.filePath), { type: 'string' });
 
       // Assuming you want to read data from the first sheet
     //   const sheetName = workbook.SheetNames[0];

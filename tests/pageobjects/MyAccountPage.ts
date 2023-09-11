@@ -1,8 +1,7 @@
 import { $ } from '@wdio/globals'
 import Page from './page.js';
-// import { browser } from '@wdio/globals'
-
 import {  expect } from 'chai'
+import * as action from '../../Utility/Action.ts';
 
 
 class MyAccountPage extends Page {
@@ -17,14 +16,6 @@ class MyAccountPage extends Page {
     }
 
 
-    //*[contains(@class,"menu_home")]
-
-
-
-
-
-
-
 ///////////////////////////////////////// Methods ////////////////////////////////////////////////    
 
     public async MyAccount_Verify () {
@@ -37,8 +28,9 @@ class MyAccountPage extends Page {
     }
 
     public async Home_Menu_Button () {
+        await action.waitUntilClickable(this.Home_Menu,5000);
         await this.Home_Menu.click();
-        
+
     }
 
 
