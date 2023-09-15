@@ -1,52 +1,27 @@
-import { $ } from '@wdio/globals'
-import Page from './page.js';
-import {  expect } from 'chai'
-import * as action from '../../Utility/Action.ts';
+import { $ } from "@wdio/globals";
 
+import * as action from "../../Utility/Action.ts";
 
-class MyAccountPage extends Page {
+class MyAccountPage {
+  public get MyAccount_heading() {
+    return $('//*[@class="heading2"]/span');
+  }
 
-    public get MyAccount_heading () {
-        return $('//*[@class="heading2"]/span');
-    }
+  public get Home_Menu() {
+    return $('//*[@class="active menu_home"]');
+  }
 
+  public async Home_Menu_Button() {
+    await action.waitUntilClickable(this.Home_Menu, 5000);
+    await this.Home_Menu.click();
+  }
 
-    public get Home_Menu () {
-        return $('//*[@class="active menu_home"]');
-    }
-
-
-///////////////////////////////////////// Methods ////////////////////////////////////////////////    
-
-    public async MyAccount_Verify () {
-        await (await this.MyAccount_heading).getText().then(async(Title)=>{
-
-            expect(Title).to.contains("MY ACCOUNT")
-  
-    })
-        
-    }
-
-    public async Home_Menu_Button () {
-        await action.waitUntilClickable(this.Home_Menu,5000);
-        await this.Home_Menu.click();
-
-    }
-
-
-    public async Add_Item_Cart (Product:any) {
-
-        const element = await $(`(//*[@title='${Product}']/parent::div/parent::div/following-sibling::div//*[@title="Add to Cart"])[1]`);
-        await element.click();
-        
-    }
-
-    
-
-    
-
-
-
+  public async Add_Item_Cart(Product: any) {
+    const element = await $(
+      `(//*[@title='${Product}']/parent::div/parent::div/following-sibling::div//*[@title="Add to Cart"])[1]`
+    );
+    await element.click();
+  }
 }
 
 export default new MyAccountPage();

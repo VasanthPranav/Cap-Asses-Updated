@@ -1,0 +1,13 @@
+{
+  "URL": {
+    "Test": "https://automationteststore.com/"
+  },
+
+  "Credentials": {
+    "Username": "Test5626",
+    "Password": "Test5626",
+    "Invalid_Username": "null",
+    "valid_Username": "NewUser",
+    "InvalidPassword": "invalidpassword"
+  }
+}

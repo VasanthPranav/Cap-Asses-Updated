@@ -1,0 +1,14 @@
+{
+  
+  "Registration": {
+    "FirstName": "Vasanth",
+    "LastName": "Dharmarajan",
+    "Email": "t@test.com",
+    "Address1": "Address_Test",
+    "City": "Test_City",
+    "Zipcode": "253622",
+    "Country": "Armenia",
+    "UserName": "FirstTest",
+    "Password": "Last_Test"
+  }
+}
