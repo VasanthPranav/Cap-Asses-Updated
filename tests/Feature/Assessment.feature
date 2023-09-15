@@ -25,7 +25,9 @@ Feature: Validation on ecommerce webpage
     Then provide Personal details in registration Screen
     Then provide invalid login details in registration Screen
     And Click on submit in Create account screen
-    Then Verify whether error is displayed in account registration screen
+    Then Verify whether "Login name must be alphanumeric only and between 5 and 64 characters" is displayed
+
+
 
 
   Scenario Outline: Verify whether user is able to successfully login
@@ -43,7 +45,7 @@ Feature: Validation on ecommerce webpage
     And navigate to registration screen
     Then Application should be navigated to registration Screen
     When provide invalid login details and click on submit
-    Then Expected error message should be displayed
+    Then Verify whether "Error: Incorrect login or password provided" is displayed
 
 
   Scenario Outline: Verify whether user able to add product to cart and validate the same in checkout page

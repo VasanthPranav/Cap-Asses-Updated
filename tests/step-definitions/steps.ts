@@ -62,10 +62,8 @@ Then(/^Verify whether expected message is displayed$/, async () => {
   expect(await browser.getTitle()).toBe("Your Account Has Been Created!");
 });
 
-Then(
-  /^Verify whether error is displayed in account registration screen$/,
-  async () => {
-    await CreateAccPage.Error_Message_validation();
+Then(/^Verify whether "([^"]*)" is displayed$/,async (SearchText) => {
+    await CreateAccPage.Error_Message_validation(SearchText);
   }
 );
 
@@ -87,10 +85,6 @@ When(/^provide invalid login details and click on submit$/, async () => {
 
 Then(/^validate home page is displayed$/, async () => {
   expect(await MyAccountPage.MyAccount_heading.getText()).toBe("MY ACCOUNT");
-});
-
-Then(/^Expected error message should be displayed$/, async () => {
-  await AccountLoginPage.Error_Message_validate();
 });
 
 When(/^navigate to home screen$/, async () => {

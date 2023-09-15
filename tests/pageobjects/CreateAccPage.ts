@@ -161,16 +161,9 @@ class CreateAccPage {
     });
   }
 
-  public async Error_Message_validation() {
-    await this.Error_Message.getText().then(async (Title) => {
-      expect(Title).not.to.equal("");
-    });
-
+  public async Error_Message_validation(searchText) {
     const pageSource = await browser.getPageSource();
     const $ = cheerio.load(pageSource);
-
-    let searchText =
-      "Login name must be alphanumeric only and between 5 and 64 characters";
 
     if ($(`*:contains("${searchText}")`).length > 0) {
       assert.equal(true, true);
