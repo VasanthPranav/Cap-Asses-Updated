@@ -25,7 +25,7 @@ Choose one of the following options:
    -- Run `npm run clean`
 
 - _On Windows:_
-  -- Remove the directories `/.git`, `/.github`, `/demo-app` & `/test`
+  -- Remove the directories `/.git`& `/.github`
 
 4. Install the dependencies (`npm install`)
 
